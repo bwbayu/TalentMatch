@@ -7,7 +7,7 @@
 
 # Init vite react
 1. cd client
-2. npm install axios react-router-dom
+2. npm install axios react-router-dom / npm install --legacy-peer-deps
 
 # Link Dataset
 1. job description in indonesian : https://www.kaggle.com/datasets/canggih/jog-description-and-salary-in-indonesia
