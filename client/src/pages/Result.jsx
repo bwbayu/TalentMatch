@@ -8,8 +8,8 @@ import ActionButton from "../components/ActionButton";
 const Result = () => {
     const navigate = useNavigate();
     // eslint-disable-next-line no-unused-vars
-    const [value, setValue] = useState(33);
-    const [show, setShow] = useState("");
+    const [value, setValue] = useState(76);
+    const [show, setShow] = useState("resume");
     const data = [
         {
             'idx': 1,
@@ -71,7 +71,7 @@ const Result = () => {
                                     </p>
                                 }
                                 sections={[
-                                    { value: 33, color: 'cyan' },
+                                    { value: value, color: 'cyan' },
                                 ]}
                             />
                             <p>the match between the cv and the job description is very poor</p>
@@ -104,7 +104,7 @@ const Result = () => {
                         <SegmentedControl
                             value={show}
                             onChange={setShow}
-                            defaultValue="Your Resume"
+                            defaultValue="resume"
                             data={[
                                 { label: 'Your Resume', value: 'resume' },
                                 { label: 'Job Description', value: 'jobdesc' },
