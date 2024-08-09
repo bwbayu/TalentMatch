@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const ActionButton = ({ handleClick, text, disabled }) => {
+const ActionButton = ({ handleClick, text, disabled = false }) => {
     return (
         <div
             className="mt-5"
