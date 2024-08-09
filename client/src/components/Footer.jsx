@@ -10,7 +10,7 @@ const Footer = () => {
             <div className="flex md:flex-row flex-col justify-between items-center md:px-16 px-8">
                 <div className="mb-4 md:block hidden">
                     <img
-                        src="public/japan2.jpg"
+                        src="/japan2.jpg"
                         alt="HospiSimulator Logo"
                         className="h-10 mx-auto" />
                 </div>

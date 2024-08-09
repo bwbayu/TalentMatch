@@ -13,7 +13,7 @@ const Home = () => {
                 <nav className="flex justify-between items-center md:px-8 px-4 flex-row py-3 bg-gray-600">
                     <div className="flex lg:flex-1">
                         <Link to="/" className="-m-1.5 p-1.5">
-                            <img className="h-8 w-auto" src="public/japan2.jpg" alt="" />
+                            <img className="h-8 w-auto" src="/japan2.jpg" alt="" />
                         </Link>
                     </div>
                     <div className="flex gap-x-12">
@@ -44,7 +44,7 @@ const Home = () => {
                             </div>
                         </div>
                         <div className="mx-auto flex justify-center">
-                            <img className="h-auto w-3/4" src="public/wendy_15.jpg" alt="wendy.jpg" />
+                            <img className="h-auto w-3/4" src="/wendy_15.jpg" alt="wendy.jpg" />
                         </div>
                     </div>
                 </div>

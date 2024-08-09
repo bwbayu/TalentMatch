@@ -19,7 +19,7 @@ const ActionButton = ({ handleClick, text, disabled = false }) => {
 ActionButton.propTypes = {
     handleClick: PropTypes.func.isRequired,
     text: PropTypes.string.isRequired,
-    disabled: PropTypes.bool.isRequired,
+    disabled: PropTypes.bool,
 }
 
 export default ActionButton
