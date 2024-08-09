@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const ActionButton = ({ handleClick, text }) => {
+const ActionButton = ({ handleClick, text, disabled }) => {
     return (
         <div
             className="mt-5"
@@ -8,6 +8,7 @@ const ActionButton = ({ handleClick, text }) => {
             <button
                 className="bg-blue-800 hover:bg-blue-200 text-white hover:text-blue-800 px-4 py-2 rounded font-semibold"
                 onClick={handleClick}
+                disabled={disabled}
             >
                 {text}
             </button>
@@ -18,6 +19,7 @@ const ActionButton = ({ handleClick, text }) => {
 ActionButton.propTypes = {
     handleClick: PropTypes.func.isRequired,
     text: PropTypes.string.isRequired,
+    disabled: PropTypes.bool.isRequired,
 }
 
 export default ActionButton

@@ -1,11 +1,8 @@
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import { useEffect, useState } from 'react';
-import { Stepper } from '@mantine/core';
+import { Stepper, Tabs, FileButton, Button, Textarea, Select, ScrollArea } from '@mantine/core';
 import ActionButton from "../components/ActionButton";
-import { FileButton, Button } from '@mantine/core';
-import { Textarea } from '@mantine/core';
-import { Select } from '@mantine/core';
 
 const Upload = () => {
     const [active, setActive] = useState(0);
@@ -14,9 +11,16 @@ const Upload = () => {
     const [isPasteView, setIsPasteView] = useState(false);
     const [jobDescriptionSelect, setJobDescriptionSelect] = useState("");
     const [jobDescription, setJobDescription] = useState("");
+    const isStep1Valid = isPasteView ? resume.length > 0 : file !== null;
+    const isStep2Valid = jobDescription.length > 0;
 
     const nextStep = () => setActive((current) => (current < 3 ? current + 1 : current));
-    const toggleView = () => setIsPasteView(prevState => !prevState);
+    const toggleView = () => {
+        setIsPasteView(prevState => !prevState);
+        // reset
+        setFile(null);
+        setResume("");
+    }
     const dataJob = {
         'Data Science': 'sample job description data science',
         'Data Engineering': 'sample job description Data Engineering',
@@ -40,7 +44,7 @@ const Upload = () => {
                     </div>
                 </nav>
             </header>
-            <div className="flex-grow md:px-16 px-8 md:py-8 py-4">
+            <div className="flex-grow md:px-16 px-8 md:py-6 py-3 h-full">
                 <div className="">
                     <Stepper
                         active={active}
@@ -106,7 +110,7 @@ const Upload = () => {
                                 )}
                             </div>
                             <div className="flex flex-col justify-center gap-2 items-center">
-                                <ActionButton handleClick={nextStep} text="Continue" />
+                                <ActionButton handleClick={nextStep} text="Continue" disabled={!isStep1Valid} />
                                 <Link
                                     onClick={toggleView}
                                     className="text-black text-sm cursor-pointer"
@@ -135,27 +139,81 @@ const Upload = () => {
                                         placeholder="Job description..."
                                         autosize
                                         minRows={8}
+                                        maxRows={8}
                                         value={jobDescription}
                                         onChange={(event) => setJobDescription(event.currentTarget.value)}
                                     />
                                 </div>
                             </div>
                             <div className="flex flex-col justify-center gap-2 items-center">
-                                <ActionButton handleClick={nextStep} text="Continue" />
+                                <ActionButton handleClick={nextStep} text="Continue" disabled={!isStep2Valid} />
                             </div>
                         </Stepper.Step>
                         <Stepper.Step label="Analyze">
                             <div className="mt-5">
-                                <p className="font-semibold text-xl">
-                                    TABS
-                                </p>
+                                <Tabs radius="xs" defaultValue="resume">
+                                    <Tabs.List>
+                                        <Tabs.Tab value="resume" >
+                                            Your Resume
+                                        </Tabs.Tab>
+                                        <Tabs.Tab value="jobDescription" >
+                                            Your Job Description
+                                        </Tabs.Tab>
+                                    </Tabs.List>
+
+                                    <Tabs.Panel value="resume">
+                                        <div className="">
+                                            <ScrollArea h={200}>
+                                                Gallery tab content Charizard is a draconic, bipedal Pokémon. It is primarily orange with a cream
+                                                underside from the chest to the tip of its tail. It has a long neck, small blue eyes, slightly raised
+                                                nostrils, and two horn-like structures protruding from the back of its rectangular head. There are two
+                                                fangs visible in the upper jaw when its mouth is closed. Two large wings with blue-green undersides
+                                                sprout from its back, and a horn-like appendage juts out from the top of the third joint of each wing.
+                                                A single wing-finger is visible through the center of each wing membrane. Charizard arms are short
+                                                and skinny compared to its robust belly, and each limb has three white claws. It has stocky legs with
+                                                cream-colored soles on each of its plantigrade feet. The tip of its long, tapering tail burns with a
+                                                sizable flame. As Mega Charizard X, its body and legs are more physically fit, though its arms remain
+                                                thin. Its skin turns black with a sky-blue underside and soles. Two spikes with blue tips curve upward
+                                                from the front and back of each shoulder, while the tips of its horns sharpen, turn blue, and curve
+                                                slightly upward. Its brow and claws are larger, and its eyes are now red. It has two small, fin-like
+                                                spikes under each horn and two more down its lower neck. The finger disappears from the wing membrane,
+                                                and the lower edges are divided into large, rounded points. The third joint of each wing-arm is adorned
+                                                with a claw-like spike. Mega Charizard X breathes blue flames out the sides of its mouth, and the f
+                                                lame on its tail now burns blue. It is said that its new power turns it black and creates more intense
+                                                flames. Gallery tab content Charizard is a draconic, bipedal Pokémon. It is primarily orange with a
+                                                cream underside from the chest to the tip of its tail. It has a long neck, small blue eyes, slightly
+                                                raised nostrils, and two horn-like structures protruding from the back of its rectangular head. There
+                                                are two fangs visible in the upper jaw when its mouth is closed. Two large wings with blue-green
+                                                undersides sprout from its back, and a horn-like appendage juts out from the top of the third joint
+                                                of each wing. A single wing-finger is visible through the center of each wing membrane. Charizard
+                                                arms are short and skinny compared to its robust belly, and each limb has three white claws.
+                                                It has stocky legs with cream-colored soles on each of its plantigrade feet. The tip of its long,
+                                                tapering tail burns with a sizable flame. As Mega Charizard X, its body and legs are more physical
+                                                ly fit, though its arms remain thin. Its skin turns black with a sky-blue underside and soles. Tw
+                                                o spikes with blue tips curve upward from the front and back of each shoulder, while the tips of
+                                                its horns sharpen, turn blue, and curve slightly upward. Its brow and claws are larger, and its e
+                                                yes are now red. It has two small, fin-like spikes under each horn and two more down its lower ne
+                                                ck. The finger disappears from the wing membrane, and the lower edges are divided into large, roun
+                                                ded points. The third joint of each wing-arm is adorned with a claw-like spike. Mega Charizard X b
+                                                reathes blue flames out the sides of its mouth, and the flame on its tail now burns blue. It is sa
+                                                id that its new power turns it black and creates more intense flames.
+                                            </ScrollArea>
+                                        </div>
+                                    </Tabs.Panel>
+
+                                    <Tabs.Panel value="jobDescription">
+                                        <ScrollArea h={200}>
+                                            {jobDescription}
+                                        </ScrollArea>
+                                    </Tabs.Panel>
+                                </Tabs>
                             </div>
                             <div className="flex flex-col justify-center gap-2 items-center">
                                 <ActionButton handleClick={nextStep} text="Continue" />
                             </div>
                         </Stepper.Step>
                         <Stepper.Completed>
-                            Completed, click back button to get to previous step
+                            SUBMIT
                         </Stepper.Completed>
                     </Stepper>
                 </div>
