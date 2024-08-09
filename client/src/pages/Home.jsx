@@ -4,13 +4,21 @@ import instagram from "../assets/dashboard/instagram.svg";
 import twitter from "../assets/dashboard/twitter.svg";
 import linkedin from "../assets/dashboard/linkedin.svg";
 import youtube from "../assets/dashboard/youtube.svg";
+import ActionButton from "../components/ActionButton";
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+    const navigate = useNavigate();
     const scrollToSection = (sectionId) => {
         const section = document.getElementById(sectionId);
         if (section) {
             section.scrollIntoView({ behavior: 'smooth' });
         }
+    };
+
+
+    const handleClick = () => {
+        navigate('/upload');
     };
 
     return (
@@ -44,8 +52,9 @@ const Home = () => {
                             <div className="text-start">
                                 <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl">Find job based on your CV</h1>
                                 <p className="mt-6 text-sm sm:text-md leading-8 text-gray-600">Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.</p>
-                                <div className="mt-10">
-                                    <Link to="/upload" className="rounded-md bg-blue-800 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-200 hover:text-blue-800 border border-blue-800">Analyze</Link>
+                                <div className="mt-5">
+                                    {/* <Link to="/upload" className="rounded-md bg-blue-800 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-200 hover:text-blue-800 border border-blue-800">Analyze</Link> */}
+                                    <ActionButton handleClick={handleClick} text="Analyze" />
                                 </div>
                             </div>
                         </div>
