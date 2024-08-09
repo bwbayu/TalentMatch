@@ -7,7 +7,7 @@ const Home = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="bg-white flex flex-col min-h-screen">
+        <div className="bg-white flex flex-col min-h-screen w-fit">
             <header>
                 {/* navbar */}
                 <nav className="flex justify-between items-center md:px-8 px-4 flex-row py-3 bg-gray-600">
