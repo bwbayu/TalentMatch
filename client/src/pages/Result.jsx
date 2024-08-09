@@ -1,13 +1,15 @@
 import { Link, useNavigate } from "react-router-dom"
 import Footer from "../components/Footer"
-import { RingProgress } from '@mantine/core';
+import { RingProgress, SegmentedControl, ScrollArea } from '@mantine/core';
 import { useState } from "react";
 import JobButton from "../components/JobButton";
 import ActionButton from "../components/ActionButton";
 
 const Result = () => {
     const navigate = useNavigate();
+    // eslint-disable-next-line no-unused-vars
     const [value, setValue] = useState(33);
+    const [show, setShow] = useState("");
     const data = [
         {
             'idx': 1,
@@ -97,7 +99,25 @@ const Result = () => {
                         </div>
                     </div>
                 </div>
-                <div className="bg-blue-200">dua</div>
+                <div className="bg-blue-200 flex flex-col">
+                    <div className="md:px-16 px-8 md:py-8 py-4 flex flex-col gap-4">
+                        <SegmentedControl
+                            value={show}
+                            onChange={setShow}
+                            defaultValue="Your Resume"
+                            data={[
+                                { label: 'Your Resume', value: 'resume' },
+                                { label: 'Job Description', value: 'jobdesc' },
+                            ]}
+                        />
+                        <div className="bg-green-200 border border-slate-50 rounded-md p-4">
+                            <ScrollArea h={200}>
+                                {show}
+                            </ScrollArea>
+
+                        </div>
+                    </div>
+                </div>
             </div>
             <Footer />
         </div>
