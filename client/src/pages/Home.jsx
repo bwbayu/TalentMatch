@@ -1,35 +1,20 @@
-import { Link } from "react-router-dom";
-import facebook from "../assets/dashboard/facebook.svg";
-import instagram from "../assets/dashboard/instagram.svg";
-import twitter from "../assets/dashboard/twitter.svg";
-import linkedin from "../assets/dashboard/linkedin.svg";
-import youtube from "../assets/dashboard/youtube.svg";
+import { Link, useNavigate } from "react-router-dom";
 import ActionButton from "../components/ActionButton";
-import { useNavigate } from 'react-router-dom';
+import Footer from "../components/Footer";
+import ScrollToSection from "../utils";
 
 const Home = () => {
     const navigate = useNavigate();
-    const scrollToSection = (sectionId) => {
-        const section = document.getElementById(sectionId);
-        if (section) {
-            section.scrollIntoView({ behavior: 'smooth' });
-        }
-    };
-
-
-    const handleClick = () => {
-        navigate('/upload');
-    };
 
     return (
-        <div className="bg-white">
-            <header className="h-screen">
+        <div className="bg-white flex flex-col min-h-screen">
+            <header>
                 {/* navbar */}
                 <nav className="flex justify-between items-center md:px-8 px-4 flex-row py-3 bg-gray-600">
                     <div className="flex lg:flex-1">
-                        <a href="#" className="-m-1.5 p-1.5">
+                        <Link to="/" className="-m-1.5 p-1.5">
                             <img className="h-8 w-auto" src="public/japan2.jpg" alt="" />
-                        </a>
+                        </Link>
                     </div>
                     <div className="flex gap-x-12">
                         <Link to="/upload"
@@ -38,7 +23,7 @@ const Home = () => {
                             Unggah CV
                         </Link>
                         <Link
-                            onClick={() => scrollToSection('panduan')}
+                            onClick={() => ScrollToSection('panduan')}
                             className="text-sm font-semibold leading-6 text-black hover:text-white"
                         >
                             Panduan
@@ -46,7 +31,7 @@ const Home = () => {
                     </div>
                 </nav>
                 {/* content */}
-                <div className="flex h-full w-full items-center md:px-16 px-8 bg-slate-200 pb-14">
+                <div className="flex h-screen items-center md:px-16 px-8 bg-slate-200 pb-14">
                     <div className="grid grid-cols-2">
                         <div className="mx-auto flex items-center">
                             <div className="text-start">
@@ -54,7 +39,7 @@ const Home = () => {
                                 <p className="mt-6 text-sm sm:text-md leading-8 text-gray-600">Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.</p>
                                 <div className="mt-5">
                                     {/* <Link to="/upload" className="rounded-md bg-blue-800 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-200 hover:text-blue-800 border border-blue-800">Analyze</Link> */}
-                                    <ActionButton handleClick={handleClick} text="Analyze" />
+                                    <ActionButton handleClick={() => navigate('/upload')} text="Analyze" />
                                 </div>
                             </div>
                         </div>
@@ -73,37 +58,7 @@ const Home = () => {
                     <div className="bg-slate-400 w-52 h-52 text-center font-bold text-xl">step 4</div>
                 </div>
             </section>
-            <footer className="bg-slate-500 text-white py-4">
-                <div className="flex md:flex-row flex-col justify-between items-center md:px-16 px-8">
-                    <div className="mb-4 md:block hidden">
-                        <img
-                            src="public/japan2.jpg"
-                            alt="HospiSimulator Logo"
-                            className="h-10 mx-auto" />
-                    </div>
-                    <div className="flex flex-col items-end">
-                        <div className="flex justify-center space-x-4 mb-4">
-                            <a href="https://www.youtube.com">
-                                <img src={youtube} alt="youtube" className="h-6 mx-auto" />
-                            </a>
-                            <a href="https://www.facebook.com">
-                                <img src={facebook} alt="facebook" className="h-6 mx-auto" />
-                            </a>
-                            <a href="https://www.twitter.com">
-                                <img src={twitter} alt="twitter" className="h-6 mx-auto" />
-                            </a>
-                            <a href="https://www.instagram.com">
-                                <img src={instagram} alt="instagram" className="h-6 mx-auto" />
-                            </a>
-                            <a href="https://www.linkedin.com">
-                                <img src={linkedin} alt="linkedin" className="h-6 mx-auto" />
-                            </a>
-
-                        </div>
-                        <p className="text-sm">&copy; 2024 TalentMatch. All rights reserved.</p>
-                    </div>
-                </div>
-            </footer>
+            <Footer />
         </div>
     );
 };
