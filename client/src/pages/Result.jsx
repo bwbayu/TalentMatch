@@ -39,28 +39,29 @@ const Result = () => {
     ];
 
     return (
-        <div className="bg-white flex flex-col min-h-screen w-screen">
+        <div className="flex flex-col min-h-screen w-screen">
             <header>
-                <nav className="flex justify-between items-center md:px-8 px-4 py-3 bg-gray-600">
+                <nav className="flex justify-between items-center md:px-8 px-4 py-3 bg-navyGray">
                     <div className="flex lg:flex-1">
                         <Link to="/" className="-m-1.5 p-1.5">
-                            <img className="h-8 w-auto" src="public/japan2.jpg" alt="" />
+                            <img className="h-8 w-auto" src="/japan2.jpg" alt="" />
                         </Link>
                     </div>
                 </nav>
             </header>
-            <div className="grid grid-cols-2">
-                <div className="bg-red-200">
+            <div className="grid grid-cols-2 bg-slateGray">
+                <div className="">
+                    {/* CONTENT KIRI */}
                     <div className="md:p-8 p-4 flex flex-col">
                         <div>
                             <p
-                                className="font-semibold text-3xl"
+                                className="font-semibold text-3xl text-mintGreen"
                             >
                                 Your Result
                             </p>
-                            <hr className="border border-black w-40" />
+                            <hr className="border-2 border-mintGreen w-40 mt-2" />
                         </div>
-                        <div className="py-4 flex flex-row items-center gap-4 px-6">
+                        <div className="py-4 flex flex-row items-center gap-4 px-6 bg-coolGray rounded-3xl my-4">
                             <RingProgress
                                 size={120}
                                 thickness={12}
@@ -71,18 +72,21 @@ const Result = () => {
                                     </p>
                                 }
                                 sections={[
-                                    { value: value, color: 'cyan' },
+                                    { value: value, color: '#3BBA9C' },
                                 ]}
                             />
-                            <p>the match between the cv and the job description is very poor</p>
+                            <p
+                                className="text-white text-lg font-semibold"
+                            >
+                                the match between the cv and the job description is very poor</p>
                         </div>
                         <div>
                             <p
-                                className="font-semibold text-2xl"
+                                className="font-semibold text-2xl text-mintGreen"
                             >
                                 Your Resume Match With This Job Description
                             </p>
-                            <hr className="border border-black w-5/6" />
+                            <hr className="border-2 border-mintGreen w-5/6 mt-2 mb-10" />
                             {data.map((job, index) => (
                                 <JobButton
                                     key={index}
@@ -99,9 +103,11 @@ const Result = () => {
                         </div>
                     </div>
                 </div>
-                <div className="bg-blue-200 flex flex-col">
+                {/* CONTENT KANAN */}
+                <div className=" flex flex-col">
                     <div className="md:px-16 px-8 md:py-8 py-4 flex flex-col gap-4">
                         <SegmentedControl
+                            color="#3BBA9C"
                             value={show}
                             onChange={setShow}
                             defaultValue="resume"
@@ -109,9 +115,15 @@ const Result = () => {
                                 { label: 'Your Resume', value: 'resume' },
                                 { label: 'Job Description', value: 'jobdesc' },
                             ]}
+                            classNames={{
+                                root: 'bg-darkBlueGray',
+                                control: 'transition-all duration-300',
+                                label: 'text-white'
+
+                            }}
                         />
-                        <div className="bg-green-200 border border-slate-50 rounded-md p-4">
-                            <ScrollArea h={200}>
+                        <div className="bg-white rounded-2xl p-4">
+                            <ScrollArea h={500}>
                                 {show}
                             </ScrollArea>
 

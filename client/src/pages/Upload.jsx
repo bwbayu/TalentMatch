@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import { useEffect, useState } from 'react';
 import { Stepper, Tabs, FileButton, Button, Textarea, Select, ScrollArea } from '@mantine/core';
@@ -13,8 +13,15 @@ const Upload = () => {
     const [jobDescription, setJobDescription] = useState("");
     const isStep1Valid = isPasteView ? resume.length > 0 : file !== null;
     const isStep2Valid = jobDescription.length > 0;
+    const navigate = useNavigate();
 
-    const nextStep = () => setActive((current) => (current < 3 ? current + 1 : current));
+    const nextStep = () => {
+        if (active < 2) {
+            setActive((current) => current + 1);
+        } else if (active === 2) {
+            navigate('/result');
+        }
+    };
     const toggleView = () => {
         setIsPasteView(prevState => !prevState);
         // reset
@@ -35,73 +42,91 @@ const Upload = () => {
 
     return (
         <div className="bg-white flex flex-col min-h-screen w-screen">
+            {/* NAVBAR */}
             <header>
-                <nav className="flex justify-between items-center md:px-8 px-4 py-3 bg-gray-600">
+                <nav className="flex justify-between items-center md:px-8 px-4 py-3 bg-navyGray">
                     <div className="flex lg:flex-1">
                         <Link to="/" className="-m-1.5 p-1.5">
-                            <img className="h-8 w-auto" src="public/japan2.jpg" alt="" />
+                            <img className="h-8 w-auto" src="/japan2.jpg" alt="" />
                         </Link>
                     </div>
                 </nav>
             </header>
-            <div className="flex-grow md:px-16 px-8 md:py-6 py-3 h-full">
+            <div className="flex-grow md:px-16 px-8 md:py-6 py-3 h-full bg-slateGray">
                 <div className="">
                     <Stepper
                         active={active}
                         onStepClick={setActive}
                         allowNextStepsSelect={false}
                         iconPosition="left"
+                        color="#3BBA9C"
                     >
-                        <Stepper.Step label="Add Resume / CV">
+                        {/* STEP 1 */}
+                        <Stepper.Step label={<span style={{ color: '#3BBA9C' }}>Add Resume / CV</span>}>
                             <div className="mt-5">
                                 {isPasteView ? (
-                                    // PASTE YOUR RESUME view
+                                    // TEXTAREA RESUME
                                     <div className="flex flex-col gap-4">
-                                        <p className="font-semibold text-xl">
+                                        <p className="font-semibold text-xl text-mintGreen">
                                             PASTE YOUR RESUME
-                                            <hr className="border border-black w-52" />
+                                            <hr className="border border-mintGreen w-52" />
                                         </p>
                                         <Textarea
                                             placeholder="Your resume..."
                                             autosize
                                             minRows={8}
+                                            maxRows={8}
                                             value={resume}
                                             onChange={(event) => setResume(event.currentTarget.value)}
+                                            styles={() => ({
+                                                input: {
+                                                    borderRadius: '0.5rem',
+                                                },
+                                            })}
                                         />
                                     </div>
                                 ) : (
-                                    // UPLOAD YOUR RESUME view
+                                    // UPLOAD RESUME
                                     <div className="">
-                                        <p className="font-semibold text-xl">
+                                        <p className="font-semibold text-mintGreen text-xl">
                                             UPLOAD YOUR RESUME
-                                            <hr className="border border-black w-56" />
+                                            <hr className="border border-mintGreen w-56" />
                                         </p>
-                                        <div className="mt-5 border border-black flex justify-center rounded-md">
+                                        <div className="mt-5 border border-white flex justify-center rounded-md">
                                             <div className="py-10 flex flex-col gap-2 items-center">
-                                                <p className="font-semibold text-lg">
+                                                <p className="font-semibold text-lg text-white">
                                                     Upload your resume to get started
                                                 </p>
-                                                <div className="flex flex-row justify-center items-center gap-x-2">
+                                                <div className="flex flex-col justify-center items-center gap-x-2">
                                                     <FileButton onChange={setFile} accept=".pdf, .doc, .docx">
                                                         {(props) => (
                                                             <Button
                                                                 {...props}
                                                                 style={{
-                                                                    backgroundColor: '#1e3a8a',
+                                                                    backgroundColor: '#2E3047',
                                                                     color: '#fff',
+                                                                    transition: 'background-color 0.3s, color 0.3s',
                                                                 }}
+                                                            // onMouseEnter={(e) => {
+                                                            //     e.target.style.backgroundColor = '#3BBA9C';
+                                                            //     e.target.style.color = '#000000';
+                                                            // }}
+                                                            // onMouseLeave={(e) => {
+                                                            //     e.target.style.backgroundColor = '#2E3047';
+                                                            //     e.target.style.color = '#fff';
+                                                            // }}
                                                             >
                                                                 Upload your resume
                                                             </Button>
                                                         )}
                                                     </FileButton>
                                                     {file && (
-                                                        <p>
+                                                        <p className="text-white">
                                                             {file.name}
                                                         </p>
                                                     )}
                                                 </div>
-                                                <p className="text-sm">
+                                                <p className="text-sm text-white">
                                                     as .pdf or .docsx file
                                                 </p>
                                             </div>
@@ -113,19 +138,20 @@ const Upload = () => {
                                 <ActionButton handleClick={nextStep} text="Continue" disabled={!isStep1Valid} />
                                 <Link
                                     onClick={toggleView}
-                                    className="text-black text-sm cursor-pointer"
+                                    className="text-white hover:text-mintGreen text-sm cursor-pointer"
                                 >
                                     Or {isPasteView ? 'upload resume file' : 'paste resume text'}
                                 </Link>
                             </div>
                         </Stepper.Step>
-                        <Stepper.Step label="Add Job Description">
+                        {/* STEP 2 */}
+                        <Stepper.Step label={<span style={{ color: '#3BBA9C' }}>Add Job Description</span>}>
                             <div className="mt-5">
                                 <div className="flex flex-col gap-4">
                                     <div className="flex justify-between">
-                                        <p className="font-semibold text-xl">
+                                        <p className="font-semibold text-xl text-mintGreen">
                                             PASTE A JOB DESCRIPTION
-                                            <hr className="border border-black w-64" />
+                                            <hr className="border border-mintGreen w-64" />
                                         </p>
                                         <Select
                                             placeholder="Select sample"
@@ -133,6 +159,12 @@ const Upload = () => {
                                             allowDeselect={false}
                                             value={jobDescriptionSelect}
                                             onChange={setJobDescriptionSelect}
+                                            styles={() => ({
+                                                input: {
+                                                    backgroundColor: '#2E3047',
+                                                    color: '#fff',
+                                                },
+                                            })}
                                         />
                                     </div>
                                     <Textarea
@@ -142,6 +174,11 @@ const Upload = () => {
                                         maxRows={8}
                                         value={jobDescription}
                                         onChange={(event) => setJobDescription(event.currentTarget.value)}
+                                        styles={() => ({
+                                            input: {
+                                                borderRadius: '0.5rem',
+                                            },
+                                        })}
                                     />
                                 </div>
                             </div>
@@ -149,20 +186,21 @@ const Upload = () => {
                                 <ActionButton handleClick={nextStep} text="Continue" disabled={!isStep2Valid} />
                             </div>
                         </Stepper.Step>
-                        <Stepper.Step label="Analyze">
+                        {/* STEP 3 */}
+                        <Stepper.Step label={<span style={{ color: '#3BBA9C' }}>Analyze</span>}>
                             <div className="mt-5">
-                                <Tabs radius="xs" defaultValue="resume">
+                                <Tabs color="#3BBA9C" radius="xs" defaultValue="resume">
                                     <Tabs.List>
-                                        <Tabs.Tab value="resume" >
-                                            Your Resume
+                                        <Tabs.Tab value="resume" color="#3BBA9C" >
+                                            {<span style={{ color: '#3BBA9C' }}>Your Resume</span>}
                                         </Tabs.Tab>
-                                        <Tabs.Tab value="jobDescription" >
-                                            Your Job Description
+                                        <Tabs.Tab value="jobDescription" color="#3BBA9C">
+                                            {<span style={{ color: '#3BBA9C' }}>Your Job Description</span>}
                                         </Tabs.Tab>
                                     </Tabs.List>
 
                                     <Tabs.Panel value="resume">
-                                        <div className="">
+                                        <div className="bg-white rounded-md p-4 mt-4">
                                             <ScrollArea h={200}>
                                                 Gallery tab content Charizard is a draconic, bipedal Pokémon. It is primarily orange with a cream
                                                 underside from the chest to the tip of its tail. It has a long neck, small blue eyes, slightly raised
@@ -202,19 +240,18 @@ const Upload = () => {
                                     </Tabs.Panel>
 
                                     <Tabs.Panel value="jobDescription">
-                                        <ScrollArea h={200}>
-                                            {jobDescription}
-                                        </ScrollArea>
+                                        <div className="bg-white rounded-md p-4 mt-4">
+                                            <ScrollArea h={200}>
+                                                {jobDescription}
+                                            </ScrollArea>
+                                        </div>
                                     </Tabs.Panel>
                                 </Tabs>
                             </div>
                             <div className="flex flex-col justify-center gap-2 items-center">
-                                <ActionButton handleClick={nextStep} text="Continue" />
+                                <ActionButton handleClick={nextStep} text="Analyze" />
                             </div>
                         </Stepper.Step>
-                        <Stepper.Completed>
-                            SUBMIT
-                        </Stepper.Completed>
                     </Stepper>
                 </div>
             </div>

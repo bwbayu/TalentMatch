@@ -6,7 +6,7 @@ import youtube from "../assets/dashboard/youtube.svg";
 
 const Footer = () => {
     return (
-        <footer className="bg-slate-500 text-white py-4">
+        <footer className="bg-navyGray text-white py-4">
             <div className="flex md:flex-row flex-col justify-between items-center md:px-16 px-8">
                 <div className="mb-4 md:block hidden">
                     <img

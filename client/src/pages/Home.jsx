@@ -7,10 +7,10 @@ const Home = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="bg-white flex flex-col min-h-screen w-fit">
+        <div className="flex flex-col min-h-screen w-fit">
             <header>
                 {/* navbar */}
-                <nav className="flex justify-between items-center md:px-8 px-4 flex-row py-3 bg-gray-600">
+                <nav className="flex justify-between items-center md:px-8 px-4 flex-row py-3 bg-navyGray">
                     <div className="flex lg:flex-1">
                         <Link to="/" className="-m-1.5 p-1.5">
                             <img className="h-8 w-auto" src="/japan2.jpg" alt="" />
@@ -18,25 +18,25 @@ const Home = () => {
                     </div>
                     <div className="flex gap-x-12">
                         <Link to="/upload"
-                            className="text-sm font-semibold leading-6 text-black hover:text-white"
+                            className="text-sm font-semibold leading-6 text-white hover:text-mintGreen"
                         >
                             Unggah CV
                         </Link>
                         <Link
                             onClick={() => ScrollToSection('panduan')}
-                            className="text-sm font-semibold leading-6 text-black hover:text-white"
+                            className="text-sm font-semibold leading-6 text-white hover:text-mintGreen"
                         >
                             Panduan
                         </Link>
                     </div>
                 </nav>
                 {/* content */}
-                <div className="flex h-screen items-center md:px-16 px-8 bg-slate-200 pb-14">
+                <div className="flex h-screen items-center md:px-16 px-8 bg-slateGray pb-14">
                     <div className="grid grid-cols-2">
                         <div className="mx-auto flex items-center">
                             <div className="text-start">
-                                <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-5xl">Find job based on your CV</h1>
-                                <p className="mt-6 text-sm sm:text-md leading-8 text-gray-600">Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.</p>
+                                <h1 className="text-3xl font-bold tracking-tight text-mintGreen sm:text-5xl">Find job based on your CV</h1>
+                                <p className="mt-6 text-sm sm:text-md leading-8 text-white">Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.</p>
                                 <div className="mt-5">
                                     {/* <Link to="/upload" className="rounded-md bg-blue-800 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-200 hover:text-blue-800 border border-blue-800">Analyze</Link> */}
                                     <ActionButton handleClick={() => navigate('/upload')} text="Analyze" />
