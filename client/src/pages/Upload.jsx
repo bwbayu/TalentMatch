@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import { useEffect, useState } from 'react';
 import { Stepper, Tabs, FileButton, Button, Textarea, Select, ScrollArea } from '@mantine/core';
 import ActionButton from "../components/ActionButton";
+import axios from 'axios';
 
 const Upload = () => {
     const [active, setActive] = useState(0);
@@ -14,26 +15,54 @@ const Upload = () => {
     const isStep1Valid = isPasteView ? resume.length > 0 : file !== null;
     const isStep2Valid = jobDescription.length > 0;
     const navigate = useNavigate();
-
-    const nextStep = () => {
-        if (active < 2) {
-            setActive((current) => current + 1);
-        } else if (active === 2) {
-            navigate('/result');
-        }
-    };
-    const toggleView = () => {
-        setIsPasteView(prevState => !prevState);
-        // reset
-        setFile(null);
-        setResume("");
-    }
     const dataJob = {
         'Data Science': 'sample job description data science',
         'Data Engineering': 'sample job description Data Engineering',
         'Fullstack Developer': 'sample job description Fullstack Developer',
         'Security Analyst': 'sample job description Security Analyst',
     }
+
+    const nextStep = async () => {
+        if (active === 0) {
+            if (isStep1Valid) {
+                if (file) {
+                    await handleUpload(); // Upload the file
+                }
+                setActive((current) => current + 1); // Move to next step
+            }
+        } else if (active < 2) {
+            setActive((current) => current + 1);
+        } else if (active === 2) {
+            navigate('/result');
+        }
+    };
+
+    const toggleView = () => {
+        setIsPasteView(prevState => !prevState);
+        // reset
+        setFile(null);
+        setResume("");
+    }
+
+    const handleUpload = async () => {
+        if (!file) return;
+
+        const formData = new FormData();
+        formData.append('pdf', file);
+
+        try {
+            const response = await axios.post('http://localhost:5000/upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            console.log("data resume pdf", response.data.text);
+            setResume(response.data.text);
+            setFile(null);
+        } catch (error) {
+            console.error('Error uploading the file:', error);
+        }
+    };
 
     useEffect(() => {
         setJobDescription(dataJob[jobDescriptionSelect] || '');
@@ -202,7 +231,7 @@ const Upload = () => {
                                     <Tabs.Panel value="resume">
                                         <div className="bg-white rounded-md p-4 mt-4">
                                             <ScrollArea h={200}>
-                                                Gallery tab content Charizard is a draconic, bipedal Pokémon. It is primarily orange with a cream
+                                                {/* Gallery tab content Charizard is a draconic, bipedal Pokémon. It is primarily orange with a cream
                                                 underside from the chest to the tip of its tail. It has a long neck, small blue eyes, slightly raised
                                                 nostrils, and two horn-like structures protruding from the back of its rectangular head. There are two
                                                 fangs visible in the upper jaw when its mouth is closed. Two large wings with blue-green undersides
@@ -234,7 +263,8 @@ const Upload = () => {
                                                 ck. The finger disappears from the wing membrane, and the lower edges are divided into large, roun
                                                 ded points. The third joint of each wing-arm is adorned with a claw-like spike. Mega Charizard X b
                                                 reathes blue flames out the sides of its mouth, and the flame on its tail now burns blue. It is sa
-                                                id that its new power turns it black and creates more intense flames.
+                                                id that its new power turns it black and creates more intense flames. */}
+                                                {resume}
                                             </ScrollArea>
                                         </div>
                                     </Tabs.Panel>

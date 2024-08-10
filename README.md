@@ -15,3 +15,12 @@
 3. resume 1 : https://www.kaggle.com/datasets/gauravduttakiit/resume-dataset
 4. resume 2 : https://huggingface.co/datasets/InferencePrince555/Resume-Dataset
 5. job description - resume pair : https://huggingface.co/datasets/cnamuangtoun/resume-job-description-fit 
+
+# Task UI
+- read pdf step 1 -> tampilin di step 3
+- click job description di kiri -> tampilin detail job di kanan
+- button navbar
+- hero di home
+- step di home
+- copy writing [minor]
+- logo [minor]
