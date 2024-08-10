@@ -6,8 +6,10 @@
 5. flask run
 
 # Init vite react
+(install nodejs)
 1. cd client
-2. npm install axios react-router-dom @mantine/core @mantine/hooks / npm install --legacy-peer-deps
+2. npm install --legacy-peer-deps
+3. npm run dev
 
 # Link Dataset
 1. job description in indonesian : https://www.kaggle.com/datasets/canggih/jog-description-and-salary-in-indonesia
@@ -21,3 +23,4 @@
 - step di home
 - copy writing [minor]
 - logo [minor]
+- kalau udh next, file/text step sebelumnya disimpan aja
