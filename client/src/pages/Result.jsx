@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate, useLocation } from "react-router-dom"
 import Footer from "../components/Footer"
 import { RingProgress, SegmentedControl, ScrollArea } from '@mantine/core';
 import { useState } from "react";
@@ -7,36 +7,63 @@ import ActionButton from "../components/ActionButton";
 
 const Result = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     // eslint-disable-next-line no-unused-vars
     const [value, setValue] = useState(76);
     const [show, setShow] = useState("resume");
+    const { resume, jobDescription } = location.state || {};
+    const [jd, setJD] = useState(jobDescription);
+
     const data = [
         {
             'idx': 1,
             'title': 'Data Science',
-            'similarity': '0.8921'
+            'similarity': '0.8921',
+            'text': 'this is data science'
         },
         {
             'idx': 2,
             'title': 'Data Engineer',
-            'similarity': '0.8921'
+            'similarity': '0.8921',
+            'text': 'this is data engineering'
         },
         {
             'idx': 3,
             'title': 'Frontend Developer',
-            'similarity': '0.8921'
+            'similarity': '0.8921',
+            'text': 'this is data frontend developer'
         },
         {
             'idx': 4,
             'title': 'Backend Developer',
-            'similarity': '0.8921'
+            'similarity': '0.8921',
+            'text': 'this is data backend developer'
         },
         {
             'idx': 5,
             'title': 'Security Analyst',
-            'similarity': '0.8921'
+            'similarity': '0.8921',
+            'text': 'this is data security analyst'
         },
     ];
+
+    const handleJobButton = (text) => {
+        console.log("text job button", text);
+        setShow('jobdesc');
+        setJD(text);
+    }
+
+    const handleSwitch = (value) => {
+        console.log("value switch", value);
+        // setShow('');
+        if (value === 'jobdesc') {
+            setShow('resume')
+            // setJD(jobDescription);
+        } else {
+            setShow('jobdesc');
+            setJD(jobDescription);
+        }
+    }
 
     return (
         <div className="flex flex-col min-h-screen w-screen">
@@ -49,84 +76,89 @@ const Result = () => {
                     </div>
                 </nav>
             </header>
-            <div className="grid grid-cols-2 bg-slateGray">
-                <div className="">
-                    {/* CONTENT KIRI */}
-                    <div className="md:p-8 p-4 flex flex-col">
-                        <div>
-                            <p
-                                className="font-semibold text-3xl text-mintGreen"
-                            >
-                                Your Result
-                            </p>
-                            <hr className="border-2 border-mintGreen w-40 mt-2" />
-                        </div>
-                        <div className="py-4 flex flex-row items-center gap-4 px-6 bg-coolGray rounded-3xl my-4">
-                            <RingProgress
-                                size={120}
-                                thickness={12}
-                                roundCaps
-                                label={
-                                    <p className="flex justify-center items-center font-bold">
-                                        {value}%
-                                    </p>
-                                }
-                                sections={[
-                                    { value: value, color: '#3BBA9C' },
-                                ]}
-                            />
-                            <p
-                                className="text-white text-lg font-semibold"
-                            >
-                                the match between the cv and the job description is very poor</p>
-                        </div>
-                        <div>
-                            <p
-                                className="font-semibold text-2xl text-mintGreen"
-                            >
-                                Your Resume Match With This Job Description
-                            </p>
-                            <hr className="border-2 border-mintGreen w-5/6 mt-2 mb-10" />
-                            {data.map((job, index) => (
-                                <JobButton
-                                    key={index}
-                                    handleClick={() => console.log(`Job ${index + 1} clicked`)}
-                                    title={job.title}
-                                    idx={index + 1}
-                                    similarity={job.similarity}
-                                />
-                            ))}
-                            <div className="flex justify-center">
-                                <ActionButton handleClick={() => navigate('/upload')} text="Analyze More" />
+            <div className="flex-grow bg-slateGray">
 
+                <div className="grid grid-cols-2">
+                    <div className="">
+                        {/* CONTENT KIRI */}
+                        <div className="md:p-8 p-4 flex flex-col">
+                            <div>
+                                <p
+                                    className="font-semibold text-3xl text-mintGreen"
+                                >
+                                    Your Result
+                                </p>
+                                <hr className="border-2 border-mintGreen w-40 mt-2" />
+                            </div>
+                            <div className="py-4 flex flex-row items-center gap-4 px-6 bg-coolGray rounded-3xl my-4">
+                                <RingProgress
+                                    size={120}
+                                    thickness={12}
+                                    roundCaps
+                                    label={
+                                        <p className="flex justify-center items-center font-bold">
+                                            {value}%
+                                        </p>
+                                    }
+                                    sections={[
+                                        { value: value, color: '#3BBA9C' },
+                                    ]}
+                                />
+                                <p
+                                    className="text-white text-lg font-semibold"
+                                >
+                                    the match between the cv and the job description is very poor</p>
+                            </div>
+                            <div>
+                                <p
+                                    className="font-semibold text-2xl text-mintGreen"
+                                >
+                                    Your Resume Match With This Job Description
+                                </p>
+                                <hr className="border-2 border-mintGreen w-5/6 mt-2 mb-10" />
+                                {data.map((job, index) => (
+                                    <JobButton
+                                        key={index}
+                                        handleClick={() => handleJobButton(job.text)}
+                                        title={job.title}
+                                        idx={index + 1}
+                                        similarity={job.similarity}
+                                    />
+                                ))}
+                                <div className="flex justify-center">
+                                    <ActionButton handleClick={() => navigate('/upload')} text="Analyze More" />
+
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                {/* CONTENT KANAN */}
-                <div className=" flex flex-col">
-                    <div className="md:px-16 px-8 md:py-8 py-4 flex flex-col gap-4">
-                        <SegmentedControl
-                            color="#3BBA9C"
-                            value={show}
-                            onChange={setShow}
-                            defaultValue="resume"
-                            data={[
-                                { label: 'Your Resume', value: 'resume' },
-                                { label: 'Job Description', value: 'jobdesc' },
-                            ]}
-                            classNames={{
-                                root: 'bg-darkBlueGray',
-                                control: 'transition-all duration-300',
-                                label: 'text-white'
+                    {/* CONTENT KANAN */}
+                    <div className=" flex flex-col">
+                        <div className="md:px-16 px-8 md:py-8 py-4 flex flex-col gap-4">
+                            <SegmentedControl
+                                color="#3BBA9C"
+                                value={show}
+                                onChange={() => handleSwitch(show)}
+                                data={[
+                                    { label: 'Your Resume', value: 'resume' },
+                                    { label: 'Job Description', value: 'jobdesc' },
+                                ]}
+                                classNames={{
+                                    root: 'bg-darkBlueGray',
+                                    control: 'transition-all duration-300',
+                                    label: 'text-white'
+                                }}
+                            />
+                            <div className="bg-white rounded-2xl p-4">
+                                <ScrollArea h={500}>
+                                    {show === 'resume' ? (
+                                        <p>{resume}</p>
+                                    ) : (
+                                        <p>{jd}</p>
+                                    )}
+                                </ScrollArea>
 
-                            }}
-                        />
-                        <div className="bg-white rounded-2xl p-4">
-                            <ScrollArea h={500}>
-                                {show}
-                            </ScrollArea>
-
+                            </div>
                         </div>
                     </div>
                 </div>
