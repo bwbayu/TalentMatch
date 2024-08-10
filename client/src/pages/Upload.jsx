@@ -39,6 +39,9 @@ const Upload = () => {
                     jobDescription
                 }
             });
+            setFile(null);
+            setResume('');
+            setJobDescription('');
         }
     };
 
@@ -63,7 +66,6 @@ const Upload = () => {
             });
             console.log("data resume pdf", response.data.text);
             setResume(response.data.text);
-            setFile(null);
         } catch (error) {
             console.error('Error uploading the file:', error);
         }

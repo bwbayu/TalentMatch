@@ -23,4 +23,3 @@
 - step di home
 - copy writing [minor]
 - logo [minor]
-- kalau udh next, file/text step sebelumnya disimpan aja
