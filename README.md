@@ -3,7 +3,7 @@
 2. virtualenv env
 3. env\Scripts\activate
 4. pip install -r requirement.txt
-5. python main.py => run app
+5. flask run
 
 # Init vite react
 1. cd client
@@ -17,9 +17,6 @@
 5. job description - resume pair : https://huggingface.co/datasets/cnamuangtoun/resume-job-description-fit 
 
 # Task UI
-- read pdf step 1 -> tampilin di step 3
-- click job description di kiri -> tampilin detail job di kanan
-- button navbar
 - hero di home
 - step di home
 - copy writing [minor]
