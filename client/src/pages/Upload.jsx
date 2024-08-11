@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Stepper, Tabs, FileButton, Button, Textarea, Select, ScrollArea } from '@mantine/core';
 import ActionButton from "../components/ActionButton";
 import axios from 'axios';
+import { dataJob } from "../utils";
 
 const Upload = () => {
     const [active, setActive] = useState(0);
@@ -15,12 +16,6 @@ const Upload = () => {
     const isStep1Valid = isPasteView ? resume.length > 0 : file !== null;
     const isStep2Valid = jobDescription.length > 0;
     const navigate = useNavigate();
-    const dataJob = {
-        'Data Science': 'sample job description data science',
-        'Data Engineering': 'sample job description Data Engineering',
-        'Fullstack Developer': 'sample job description Fullstack Developer',
-        'Security Analyst': 'sample job description Security Analyst',
-    }
 
     const nextStep = async () => {
         if (active === 0) {
@@ -73,7 +68,6 @@ const Upload = () => {
 
     useEffect(() => {
         setJobDescription(dataJob[jobDescriptionSelect] || '');
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [jobDescriptionSelect]);
 
     return (
@@ -191,7 +185,7 @@ const Upload = () => {
                                         </p>
                                         <Select
                                             placeholder="Select sample"
-                                            data={['Data Science', 'Data Engineering', 'Fullstack Developer', 'Security Analyst']}
+                                            data={['Data Science', 'Web Developer', 'Software Developer', 'Business Analyst', 'Finance']}
                                             allowDeselect={false}
                                             value={jobDescriptionSelect}
                                             onChange={setJobDescriptionSelect}
