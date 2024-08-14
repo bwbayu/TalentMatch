@@ -21,7 +21,7 @@ JobButton.propTypes = {
     handleClick: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,
     idx: PropTypes.number.isRequired,
-    similarity: PropTypes.string.isRequired,
+    similarity: PropTypes.number.isRequired,
 }
 
 export default JobButton

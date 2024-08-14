@@ -11,50 +11,17 @@ const Result = () => {
     // eslint-disable-next-line no-unused-vars
     const [value, setValue] = useState(76);
     const [show, setShow] = useState("resume");
-    const { resume, jobDescription } = location.state || {};
+    const { resume, jobDescription, resultData } = location.state || {};
     const [jd, setJD] = useState(jobDescription);
 
-    const data = [
-        {
-            'idx': 1,
-            'title': 'Data Science',
-            'similarity': '0.8921',
-            'text': 'this is data science'
-        },
-        {
-            'idx': 2,
-            'title': 'Data Engineer',
-            'similarity': '0.8921',
-            'text': 'this is data engineering'
-        },
-        {
-            'idx': 3,
-            'title': 'Frontend Developer',
-            'similarity': '0.8921',
-            'text': 'this is data frontend developer'
-        },
-        {
-            'idx': 4,
-            'title': 'Backend Developer',
-            'similarity': '0.8921',
-            'text': 'this is data backend developer'
-        },
-        {
-            'idx': 5,
-            'title': 'Security Analyst',
-            'similarity': '0.8921',
-            'text': 'this is data security analyst'
-        },
-    ];
-
     const handleJobButton = (text) => {
-        console.log("text job button", text);
+        // console.log("text job button", text);
         setShow('jobdesc');
         setJD(text);
     }
 
     const handleSwitch = (value) => {
-        console.log("value switch", value);
+        // console.log("value switch", value);
         // setShow('');
         if (value === 'jobdesc') {
             setShow('resume')
@@ -116,13 +83,13 @@ const Result = () => {
                                     Your Resume Match With This Job Description
                                 </p>
                                 <hr className="border-2 border-mintGreen w-5/6 mt-2 mb-10" />
-                                {data.map((job, index) => (
+                                {resultData.map((job, index) => (
                                     <JobButton
                                         key={index}
-                                        handleClick={() => handleJobButton(job.text)}
+                                        handleClick={() => handleJobButton(job.description)}
                                         title={job.title}
                                         idx={index + 1}
-                                        similarity={job.similarity}
+                                        similarity={job.distance}
                                     />
                                 ))}
                                 <div className="flex justify-center">

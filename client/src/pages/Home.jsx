@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import ActionButton from "../components/ActionButton";
 import Footer from "../components/Footer";
-import ScrollToSection from "../utils";
+import { ScrollToSection } from "../utils";
 
 const Home = () => {
     const navigate = useNavigate();

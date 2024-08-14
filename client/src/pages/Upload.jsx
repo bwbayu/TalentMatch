@@ -28,15 +28,7 @@ const Upload = () => {
         } else if (active < 2) {
             setActive((current) => current + 1);
         } else if (active === 2) {
-            navigate('/result', {
-                state: {
-                    resume,
-                    jobDescription
-                }
-            });
-            setFile(null);
-            setResume('');
-            setJobDescription('');
+            await handleSearch();
         }
     };
 
@@ -59,10 +51,32 @@ const Upload = () => {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            console.log("data resume pdf", response.data.text);
+            // console.log("data resume pdf", response.data.text);
             setResume(response.data.text);
         } catch (error) {
             console.error('Error uploading the file:', error);
+        }
+    };
+
+    const handleSearch = async () => {
+        try {
+            const response = await axios.post('http://localhost:5000/search', {
+                resume
+            });
+
+            // console.log("search results before", response.data);
+            navigate('/result', {
+                state: {
+                    resume,
+                    jobDescription,
+                    resultData: response.data
+                }
+            });
+            setFile(null);
+            setResume('');
+            setJobDescription('');
+        } catch (error) {
+            console.error('Error searching for jobs:', error);
         }
     };
 
