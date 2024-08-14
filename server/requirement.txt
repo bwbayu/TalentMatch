@@ -3,3 +3,8 @@ pandas
 pypdf
 Flask-Cors
 python-docx
+nltk
+num2words
+scikit-learn
+pymilvus
+gensim

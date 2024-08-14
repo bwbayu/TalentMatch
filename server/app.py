@@ -3,12 +3,28 @@ from flask_cors import CORS
 from pypdf import PdfReader
 from docx import Document
 import os
+from gensim.models.doc2vec import Doc2Vec
+from preprocessing import preprocessing_data
+from pymilvus import (
+    connections,
+    Collection,
+)
 
 app = Flask(__name__)
 CORS(app, origins='*')
+
+# upload
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 ALLOWED_EXTENSIONS = {'pdf', 'docx'}
+
+# load model
+model = Doc2Vec.load("model/doc2vec_modelr30knoner.model")
+
+# connect to milvus
+connections.connect("default", host="localhost", port="19530")
+collection = Collection("jobs_collection")
+collection.load()
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -48,6 +64,40 @@ def upload_file():
             os.remove(filepath)
         print("text pdf/word", text)
         return jsonify({'text': text})
+
+@app.route('/search', methods=['POST'])
+def search():
+    input_text = request.json.get("resume")
+    print("input masuk")
+    # preprocessing and convert to embeddings
+    preprocessed_resume = preprocessing_data(input_text)
+    resume_tokens = preprocessed_resume.split()
+    resume_embedding = model.infer_vector(resume_tokens)
+    print("embedding done")
+
+    # query vector db
+    search_params = {"metric_type": "L2", "params": {"nprobe": 10}}
+    results = collection.search(
+        data=[resume_embedding],
+        anns_field="embedding",
+        param=search_params,
+        limit=5,
+        output_fields=["id", "title", "description"]
+    )
+    print("query done")
+
+    # return data
+    output = []
+    for result in results[0]:
+        output.append({
+            "id": result.id,
+            "title": result.entity.get("title"),
+            "description": result.entity.get("description"),
+            "distance": result.distance
+        })
+    
+    return jsonify(output), 200
+
 
 @app.route('/')
 def index():
