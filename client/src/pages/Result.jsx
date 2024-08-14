@@ -8,10 +8,14 @@ import ActionButton from "../components/ActionButton";
 const Result = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    // eslint-disable-next-line no-unused-vars
-    const [value, setValue] = useState(76);
     const [show, setShow] = useState("resume");
-    const { resume, jobDescription, resultData } = location.state || {};
+    const { resume, jobDescription, resultData, similarity } = location.state || {};
+    // eslint-disable-next-line no-unused-vars
+    const [value, setValue] = useState(
+        similarity !== undefined ? parseInt((similarity * 100).toFixed(0)) : 0
+    );
+
+    console.log(typeof (value));
     const [jd, setJD] = useState(jobDescription);
 
     const handleJobButton = (text) => {

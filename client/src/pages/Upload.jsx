@@ -60,6 +60,12 @@ const Upload = () => {
 
     const handleSearch = async () => {
         try {
+            const responseSim = await axios.post('http://localhost:5000/calculate', {
+                resume,
+                jobDesc: jobDescription
+            });
+            console.log("respon similarity:", responseSim.data.similarity);
+
             const response = await axios.post('http://localhost:5000/search', {
                 resume
             });
@@ -69,14 +75,15 @@ const Upload = () => {
                 state: {
                     resume,
                     jobDescription,
-                    resultData: response.data
+                    resultData: response.data,
+                    similarity: responseSim.data.similarity
                 }
             });
             setFile(null);
             setResume('');
             setJobDescription('');
         } catch (error) {
-            console.error('Error searching for jobs:', error);
+            console.error('Error searching for jobs or compare resume and job description:', error);
         }
     };
 

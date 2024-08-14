@@ -4,6 +4,8 @@ from pypdf import PdfReader
 from docx import Document
 import os
 from gensim.models.doc2vec import Doc2Vec
+from sklearn.metrics.pairwise import cosine_similarity
+import numpy as np
 from preprocessing import preprocessing_data
 from pymilvus import (
     connections,
@@ -98,6 +100,37 @@ def search():
     
     return jsonify(output), 200
 
+@app.route('/calculate', methods=['POST'])
+def calculate():
+    try:
+        resume = request.json.get("resume")
+        jobDesc = request.json.get("jobDesc")
+        print("input done")
+
+        # preprocessing and convert to embeddings resume
+        preprocessed_resume = preprocessing_data(resume)
+        resume_tokens = preprocessed_resume.split()
+        resume_embedding = model.infer_vector(resume_tokens)
+        print("embedding resume done")
+
+        # preprocessing and convert to embeddings job description
+        preprocessed_jd = preprocessing_data(jobDesc)
+        jd_tokens = preprocessed_jd.split()
+        jd_embedding = model.infer_vector(jd_tokens)
+        print("embedding resume done")
+
+        # calculate similarity score
+        resume_embedding = np.array(resume_embedding).reshape(1, -1)
+        jd_embedding = np.array(jd_embedding).reshape(1, -1)
+        
+        similarity_score = cosine_similarity(resume_embedding, jd_embedding)[0][0]
+        similarity_score = float(similarity_score)
+        print("similarity score:", similarity_score)
+        # Return the similarity score
+        return jsonify({"similarity": similarity_score})
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return jsonify({"error": str(e)}), 500
 
 @app.route('/')
 def index():
