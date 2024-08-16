@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 const JobButton = ({ handleClick, title, idx, similarity }) => {
-    const formattedSimilarity = similarity.toFixed(2);
+    const formattedSimilarity = (similarity * 100).toFixed(2);
     return (
         <div
             className="mt-5"
@@ -11,7 +11,7 @@ const JobButton = ({ handleClick, title, idx, similarity }) => {
                 onClick={handleClick}
             >
                 <div className='flex flex-row gap-2'>
-                    {idx}. {title} - Similarity {formattedSimilarity}
+                    {idx}. {title} - Similarity {formattedSimilarity}%
                 </div>
             </button>
         </div>

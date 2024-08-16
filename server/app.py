@@ -7,9 +7,11 @@ from gensim.models.doc2vec import Doc2Vec
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 from preprocessing import preprocessing_data
+from sentence_transformers import SentenceTransformer, util
 from pymilvus import (
     connections,
     Collection,
+    list_collections,
 )
 
 app = Flask(__name__)
@@ -20,13 +22,26 @@ UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 ALLOWED_EXTENSIONS = {'pdf', 'docx'}
 
+# # load model
+# model = Doc2Vec.load("model/doc2vec_modelr30knoner.model")
+
 # load model
-model = Doc2Vec.load("model/doc2vec_modelr30knoner.model")
+model_sbert = SentenceTransformer("model/sbert_model")
 
 # connect to milvus
 connections.connect("default", host="localhost", port="19530")
-collection = Collection("jobs_collection")
-collection.load()
+
+# Check if collection exists
+collection_name = "sbert_jobs_collection"
+existing_collections = list_collections()
+
+if collection_name not in existing_collections:
+    # If collection doesn't exist, run the create.py code
+    from create import collection
+else:
+    # If collection exists, load the collection
+    collection = Collection(collection_name)
+    collection.load()
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -71,14 +86,15 @@ def upload_file():
 def search():
     input_text = request.json.get("resume")
     print("input masuk")
-    # preprocessing and convert to embeddings
+    # preprocessing
     preprocessed_resume = preprocessing_data(input_text)
-    resume_tokens = preprocessed_resume.split()
-    resume_embedding = model.infer_vector(resume_tokens)
+
+    # Convert to embeddings SBERT
+    resume_embedding = model_sbert.encode(preprocessed_resume, convert_to_tensor=False)
     print("embedding done")
 
     # query vector db
-    search_params = {"metric_type": "L2", "params": {"nprobe": 10}}
+    search_params = {"metric_type": "COSINE", "params": {"nprobe": 10}}
     results = collection.search(
         data=[resume_embedding],
         anns_field="embedding",
@@ -109,23 +125,22 @@ def calculate():
 
         # preprocessing and convert to embeddings resume
         preprocessed_resume = preprocessing_data(resume)
-        resume_tokens = preprocessed_resume.split()
-        resume_embedding = model.infer_vector(resume_tokens)
-        print("embedding resume done")
-
         # preprocessing and convert to embeddings job description
         preprocessed_jd = preprocessing_data(jobDesc)
-        jd_tokens = preprocessed_jd.split()
-        jd_embedding = model.infer_vector(jd_tokens)
-        print("embedding resume done")
 
-        # calculate similarity score
-        resume_embedding = np.array(resume_embedding).reshape(1, -1)
-        jd_embedding = np.array(jd_embedding).reshape(1, -1)
-        
-        similarity_score = cosine_similarity(resume_embedding, jd_embedding)[0][0]
+        # Convert to embeddings SBERT
+        resume_embedding = model_sbert.encode(preprocessed_resume, convert_to_tensor=False)
+        print("embedding resume done")
+        # Convert to embeddings SBERT
+        jd_embedding = model_sbert.encode(preprocessed_jd, convert_to_tensor=False)
+        print("embedding job desc done")
+
+        # calculate similarity score SBERT
+        similarity_score = util.pytorch_cos_sim(resume_embedding, jd_embedding).item()
+
         similarity_score = float(similarity_score)
         print("similarity score:", similarity_score)
+
         # Return the similarity score
         return jsonify({"similarity": similarity_score})
     except Exception as e:
