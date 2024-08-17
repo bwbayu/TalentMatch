@@ -135,9 +135,13 @@ const Result = () => {
                             <div className="bg-white rounded-2xl p-4">
                                 <ScrollArea h={500}>
                                     {show === 'resume' ? (
-                                        <p>{resume ? resume : "-"}</p>
+                                        <pre style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
+                                            <p>{resume ? resume : "-"}</p>
+                                        </pre>
                                     ) : (
-                                        <p>{jd ? jd : "-"}</p>
+                                        <pre style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
+                                            <p>{jd ? jd : "-"}</p>
+                                        </pre>
                                     )}
                                 </ScrollArea>
 

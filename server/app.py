@@ -69,7 +69,6 @@ def upload_file():
             return jsonify({'error': str(e)}), 500
         finally:
             os.remove(filepath)
-        print("text pdf/word", text)
         return jsonify({'text': text})
 
 @app.route('/search', methods=['POST'])

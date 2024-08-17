@@ -253,7 +253,9 @@ const Upload = () => {
                                     <Tabs.Panel value="resume">
                                         <div className="bg-white rounded-md p-4 mt-4">
                                             <ScrollArea h={200}>
-                                                {resume}
+                                                <pre style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
+                                                    {resume}
+                                                </pre>
                                             </ScrollArea>
                                         </div>
                                     </Tabs.Panel>
@@ -261,7 +263,9 @@ const Upload = () => {
                                     <Tabs.Panel value="jobDescription">
                                         <div className="bg-white rounded-md p-4 mt-4">
                                             <ScrollArea h={200}>
-                                                {jobDescription}
+                                                <pre style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
+                                                    {jobDescription}
+                                                </pre>
                                             </ScrollArea>
                                         </div>
                                     </Tabs.Panel>
