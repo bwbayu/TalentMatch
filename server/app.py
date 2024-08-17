@@ -2,16 +2,14 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from pypdf import PdfReader
 from docx import Document
+from dotenv import load_dotenv
 import os
-from gensim.models.doc2vec import Doc2Vec
-from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 from preprocessing import preprocessing_data
 from sentence_transformers import SentenceTransformer, util
 from pymilvus import (
+    Collection, 
     connections,
-    Collection,
-    list_collections,
 )
 
 app = Flask(__name__)
@@ -22,26 +20,18 @@ UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 ALLOWED_EXTENSIONS = {'pdf', 'docx'}
 
-# # load model
-# model = Doc2Vec.load("model/doc2vec_modelr30knoner.model")
+# load env
+load_dotenv()
+COLLECTION_NAME = os.getenv('COLLECTION_NAME')
+ZILLIZ_API_KEY = os.getenv('ZILLIZ_API_KEY')
+ZILLIZ_URI = os.getenv('ZILLIZ_URI')
+print("load key done")
 
-# load model
+# load model and milvus
 model_sbert = SentenceTransformer("model/sbert_model")
-
-# connect to milvus
-connections.connect("default", host="localhost", port="19530")
-
-# Check if collection exists
-collection_name = "sbert_jobs_collection"
-existing_collections = list_collections()
-
-if collection_name not in existing_collections:
-    # If collection doesn't exist, run the create.py code
-    from create import collection
-else:
-    # If collection exists, load the collection
-    collection = Collection(collection_name)
-    collection.load()
+connections.connect("default", uri=ZILLIZ_URI, token=ZILLIZ_API_KEY)
+collection = Collection(COLLECTION_NAME)
+print("load model and milvus done")
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -97,7 +87,7 @@ def search():
     search_params = {"metric_type": "COSINE", "params": {"nprobe": 10}}
     results = collection.search(
         data=[resume_embedding],
-        anns_field="embedding",
+        anns_field="vector",
         param=search_params,
         limit=5,
         output_fields=["id", "title", "description"]
