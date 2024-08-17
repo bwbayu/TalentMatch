@@ -1,7 +1,7 @@
 import { Link, useNavigate, useLocation } from "react-router-dom"
 import Footer from "../components/Footer"
 import { RingProgress, SegmentedControl, ScrollArea } from '@mantine/core';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import JobButton from "../components/JobButton";
 import ActionButton from "../components/ActionButton";
 
@@ -10,12 +10,12 @@ const Result = () => {
     const location = useLocation();
     const [show, setShow] = useState("resume");
     const { resume, jobDescription, resultData, similarity } = location.state || {};
+
     // eslint-disable-next-line no-unused-vars
     const [value, setValue] = useState(
         similarity !== undefined ? parseInt((similarity * 100).toFixed(0)) : 0
     );
 
-    console.log(typeof (value));
     const [jd, setJD] = useState(jobDescription);
 
     const handleJobButton = (text) => {
@@ -35,6 +35,14 @@ const Result = () => {
             setJD(jobDescription);
         }
     }
+
+    useEffect(() => {
+        // redirect to upload, if there is no data
+        if (jd === undefined || resultData === undefined) {
+            navigate('/upload');
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <div className="flex flex-col min-h-screen w-screen">
@@ -87,15 +95,19 @@ const Result = () => {
                                     Your Resume Match With This Job Description
                                 </p>
                                 <hr className="border-2 border-mintGreen w-5/6 mt-2 mb-10" />
-                                {resultData.map((job, index) => (
-                                    <JobButton
-                                        key={index}
-                                        handleClick={() => handleJobButton(job.description)}
-                                        title={job.title}
-                                        idx={index + 1}
-                                        similarity={job.distance}
-                                    />
-                                ))}
+                                {
+                                    resultData ?
+                                        (resultData.map((job, index) => (
+                                            <JobButton
+                                                key={index}
+                                                handleClick={() => handleJobButton(job.description)}
+                                                title={job.title}
+                                                idx={index + 1}
+                                                similarity={job.distance}
+                                            />
+                                        ))) :
+                                        <p>tidak ada data</p>
+                                }
                                 <div className="flex justify-center">
                                     <ActionButton handleClick={() => navigate('/upload')} text="Analyze More" />
 
@@ -123,9 +135,9 @@ const Result = () => {
                             <div className="bg-white rounded-2xl p-4">
                                 <ScrollArea h={500}>
                                     {show === 'resume' ? (
-                                        <p>{resume}</p>
+                                        <p>{resume ? resume : "-"}</p>
                                     ) : (
-                                        <p>{jd}</p>
+                                        <p>{jd ? jd : "-"}</p>
                                     )}
                                 </ScrollArea>
 
