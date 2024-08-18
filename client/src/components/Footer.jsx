@@ -33,7 +33,7 @@ const Footer = () => {
                         </a>
 
                     </div>
-                    <p className="text-sm">&copy; 2024 TalentMatch. All rights reserved.</p>
+                    <p className="text-sm">&copy; 2024 JobFitte. All rights reserved.</p>
                 </div>
             </div>
         </footer>
