@@ -7,7 +7,7 @@ const JobButton = ({ handleClick, title, idx, similarity }) => {
             className="mt-5"
         >
             <button
-                className="bg-darkBlueGray hover:bg-mintGreen text-white hover:text-black px-4 py-2 rounded font-semibold w-full"
+                className="bg-darkBlueGray hover:bg-mintGreen text-white hover:text-black px-4 py-2 rounded font-semibold w-full text-start"
                 onClick={handleClick}
             >
                 <div className='flex flex-row gap-2'>

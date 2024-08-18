@@ -5,6 +5,7 @@ import { Stepper, Tabs, FileButton, Button, Textarea, Select, ScrollArea, Loadin
 import ActionButton from "../components/ActionButton";
 import axios from 'axios';
 import { dataJob } from "../utils";
+import { useMediaQuery } from '@mantine/hooks';
 
 const Upload = () => {
     const [active, setActive] = useState(0);
@@ -17,6 +18,7 @@ const Upload = () => {
     const isStep1Valid = isPasteView ? resume.length > 0 : file !== null;
     const isStep2Valid = jobDescription.length > 0;
     const navigate = useNavigate();
+    const isMobile = useMediaQuery('(max-width: 640px)');
 
     const nextStep = async () => {
         if (active === 0) {
@@ -102,6 +104,7 @@ const Upload = () => {
                 zIndex={1000}
                 overlayProps={{ radius: 'md', blur: 1, color: '#43455C' }}
                 loaderProps={{ color: '#3BBA9C', size: 50 }}
+                style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
             />
             <div className="bg-white flex flex-col min-h-screen w-screen">
                 {/* NAVBAR */}
@@ -114,7 +117,7 @@ const Upload = () => {
                         </div>
                     </nav>
                 </header>
-                <div className="flex-grow md:px-16 px-8 md:py-6 py-3 h-full bg-slateGray">
+                <div className="flex-grow md:px-40 px-12 md:py-6 py-3 h-full bg-slateGray">
                     <div className="">
                         <Stepper
                             active={active}
@@ -122,10 +125,12 @@ const Upload = () => {
                             allowNextStepsSelect={false}
                             iconPosition="left"
                             color="#3BBA9C"
+                            orientation={isMobile ? "vertical" : "horizontal"}
                         >
                             {/* STEP 1 */}
-                            <Stepper.Step label={<span style={{ color: '#3BBA9C' }}>Add Resume / CV</span>}>
-                                <div className="mt-5">
+                            {/* <Stepper.Step label={<span style={{ color: '#3BBA9C' }}>Add Resume / CV</span>}> */}
+                            <Stepper.Step label={<span style={{ color: '#ffffff' }}>Step 1</span>} description={<span style={{ color: '#3BBA9C' }}>Add Resume / CV</span>}>
+                                <div className="sm:mt-5 mt-0">
                                     {isPasteView ? (
                                         // TEXTAREA RESUME
                                         <div className="flex flex-col gap-4">
@@ -156,7 +161,7 @@ const Upload = () => {
                                             </p>
                                             <div className="mt-5 border border-white flex justify-center rounded-md">
                                                 <div className="py-10 flex flex-col gap-2 items-center">
-                                                    <p className="font-semibold text-lg text-white">
+                                                    <p className="font-semibold sm:text-lg text-md text-white">
                                                         Upload your resume to get started
                                                     </p>
                                                     <div className="flex flex-col justify-center items-center gap-x-2">
@@ -207,10 +212,11 @@ const Upload = () => {
                                 </div>
                             </Stepper.Step>
                             {/* STEP 2 */}
-                            <Stepper.Step label={<span style={{ color: '#3BBA9C' }}>Add Job Description</span>}>
-                                <div className="mt-5">
+                            {/* <Stepper.Step label={<span style={{ color: '#3BBA9C' }}>Add Job Description</span>}> */}
+                            <Stepper.Step label={<span style={{ color: '#ffffff' }}>Step 2</span>} description={<span style={{ color: '#3BBA9C' }}>Add Job Description</span>}>
+                                <div className="sm:mt-5 mt-0">
                                     <div className="flex flex-col gap-4">
-                                        <div className="flex justify-between">
+                                        <div className="flex sm:justify-between sm:flex-row flex-col gap-4">
                                             <p className="font-semibold text-xl text-mintGreen">
                                                 PASTE A JOB DESCRIPTION
                                                 <hr className="border border-mintGreen w-64" />
@@ -249,8 +255,9 @@ const Upload = () => {
                                 </div>
                             </Stepper.Step>
                             {/* STEP 3 */}
-                            <Stepper.Step label={<span style={{ color: '#3BBA9C' }}>Analyze</span>}>
-                                <div className="mt-5">
+                            {/* <Stepper.Step label={<span style={{ color: '#3BBA9C' }}>Analyze</span>}> */}
+                            <Stepper.Step label={<span style={{ color: '#ffffff' }}>Step 3</span>} description={<span style={{ color: '#3BBA9C' }}>Analyze</span>}>
+                                <div className="sm:mt-5 mt-0">
                                     <Tabs color="#3BBA9C" radius="xs" defaultValue="resume">
                                         <Tabs.List>
                                             <Tabs.Tab value="resume" color="#3BBA9C" >
@@ -290,7 +297,7 @@ const Upload = () => {
                     </div>
                 </div>
                 <Footer />
-            </div>
+            </div >
         </>
     );
 };
