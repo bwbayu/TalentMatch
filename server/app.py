@@ -28,7 +28,8 @@ ZILLIZ_URI = os.getenv('ZILLIZ_URI')
 print("load key done")
 
 # load model and milvus
-model_sbert = SentenceTransformer("model/sbert_model")
+# model_sbert = SentenceTransformer("model/sbert_model")
+model_sbert = SentenceTransformer("bwbayu/sbert_model_jobcv")
 connections.connect("default", uri=ZILLIZ_URI, token=ZILLIZ_API_KEY)
 collection = Collection(COLLECTION_NAME)
 print("load model and milvus done")
