@@ -80,11 +80,11 @@ const Result = () => {
                                     roundCaps
                                     label={
                                         <p className="flex justify-center items-center font-bold">
-                                            {value}%
+                                            {value >= 0 ? value : 0}%
                                         </p>
                                     }
                                     sections={[
-                                        { value: value, color: '#3BBA9C' },
+                                        { value: value >= 0 ? value : 0, color: '#3BBA9C' },
                                     ]}
                                 />
                                 <p
