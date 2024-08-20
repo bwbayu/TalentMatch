@@ -44,7 +44,7 @@ const Home = () => {
                             </div>
                         </div>
                         <div className="mx-auto flex justify-center">
-                            <img className="h-auto w-3/4" src="/wendy_15.jpg" alt="wendy.jpg" />
+                            <img className="h-auto w-3/4" src="wendy_15.jpg" alt="wendy.jpg" />
                         </div>
                     </div>
                 </div>

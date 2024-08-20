@@ -2,7 +2,7 @@
 1. cd server
 2. virtualenv env
 3. env\Scripts\activate
-4. pip install -r requirement.txt
+4. pip install -r requirements.txt
 5. flask run
 
 # Init vite react
@@ -18,8 +18,24 @@
 4. resume 2 : https://huggingface.co/datasets/InferencePrince555/Resume-Dataset
 5. job description - resume pair : https://huggingface.co/datasets/cnamuangtoun/resume-job-description-fit 
 
+# Link Model
+https://huggingface.co/bwbayu/sbert_model_jobcv/tree/main
+
 # Task UI
 - hero di home
 - step di home
 - copy writing [minor]
 - logo [minor]
+
+# Deploy Flask to Cloud Run
+1. create Dockerfile and .dockerignore
+2. gcloud init
+3. gcloud run deploy --source .
+4. setting env -> service detail -> edit & deploy new revision -> variables & secrets
+5. update memory -> service detail -> edit & deploy new revision -> resources
+
+# Deploy React on Cloud Run
+1. npm run build
+2. create Dockerfile, .dockerignore, nginx.conf
+3. gcloud init
+4. gcloud run deploy --source .

@@ -49,7 +49,7 @@ const Upload = () => {
         formData.append('pdf', file);
 
         try {
-            const response = await axios.post('http://localhost:5000/upload', formData, {
+            const response = await axios.post('https://api-jobfitte-ajoy7ys6gq-et.a.run.app/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -64,13 +64,13 @@ const Upload = () => {
     const handleSearch = async () => {
         setLoading(true);
         try {
-            const responseSim = await axios.post('http://localhost:5000/calculate', {
+            const responseSim = await axios.post('https://api-jobfitte-ajoy7ys6gq-et.a.run.app/calculate', {
                 resume,
                 jobDesc: jobDescription
             });
             console.log("respon similarity:", responseSim.data.similarity);
 
-            const response = await axios.post('http://localhost:5000/search', {
+            const response = await axios.post('https://api-jobfitte-ajoy7ys6gq-et.a.run.app/search', {
                 resume
             });
 
