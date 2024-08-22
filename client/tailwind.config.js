@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        lemon: ['Lemon', 'serif'],
+      },
       colors: {
         mintGreen: '#3BBA9C',
         darkBlueGray: '#2E3047',

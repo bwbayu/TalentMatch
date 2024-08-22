@@ -3,16 +3,19 @@ import instagram from "../assets/dashboard/instagram.svg";
 import twitter from "../assets/dashboard/twitter.svg";
 import linkedin from "../assets/dashboard/linkedin.svg";
 import youtube from "../assets/dashboard/youtube.svg";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
     return (
         <footer className="bg-navyGray text-white py-4">
             <div className="flex md:flex-row flex-col justify-between items-center md:px-16 px-8">
-                <div className="mb-4 md:block hidden">
-                    <img
-                        src="/japan2.jpg"
-                        alt="HospiSimulator Logo"
-                        className="h-10 mx-auto" />
+                <div className="mb-4 md:block hidden ">
+                    <Link to="/" className="-m-1.5 p-1.5">
+                        <div className="flex flex-row">
+                            <p className="font-lemon text-mintGreen">Job</p>
+                            <p className="font-lemon text-white">Fitte</p>
+                        </div>
+                    </Link>
                 </div>
                 <div className="flex flex-col items-end">
                     <div className="flex justify-center space-x-4 mb-4">

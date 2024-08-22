@@ -115,7 +115,10 @@ const Upload = () => {
                     <nav className="flex justify-between items-center md:px-8 px-4 py-3 bg-navyGray">
                         <div className="flex lg:flex-1">
                             <Link to="/" className="-m-1.5 p-1.5">
-                                <img className="h-8 w-auto" src="/japan2.jpg" alt="" />
+                                <div className="flex flex-row">
+                                    <p className="font-lemon text-mintGreen">Job</p>
+                                    <p className="font-lemon text-white">Fitte</p>
+                                </div>
                             </Link>
                         </div>
                     </nav>

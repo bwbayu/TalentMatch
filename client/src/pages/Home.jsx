@@ -13,7 +13,10 @@ const Home = () => {
                 <nav className="flex justify-between items-center md:px-8 px-4 flex-row py-3 bg-navyGray">
                     <div className="flex lg:flex-1">
                         <Link to="/" className="-m-1.5 p-1.5">
-                            <img className="h-8 w-auto" src="/japan2.jpg" alt="" />
+                            <div className="flex flex-row">
+                                <p className="font-lemon text-mintGreen">Job</p>
+                                <p className="font-lemon text-white">Fitte</p>
+                            </div>
                         </Link>
                     </div>
                     <div className="flex gap-x-12">
@@ -31,12 +34,12 @@ const Home = () => {
                     </div>
                 </nav>
                 {/* content */}
-                <div className="flex h-full items-center bg-slateGray py-16 px-8 md:px-16">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="flex h-screen items-center bg-slateGray md:py-16 md:px-16 px-8 py-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                         {/* Bagian Teks */}
-                        <div className="flex items-center order-2 md:order-1 mx-auto">
+                        <div className="flex items-center order-2 lg:order-1 mx-auto">
                             <div className="text-start">
-                                <h1 className="text-3xl font-bold tracking-tight text-mintGreen sm:text-5xl">Find Your Perfect Job Match Effortlessly</h1>
+                                <h1 className="text-3xl font-bold tracking-tight text-mintGreen lg:text-5xl">Find Your Perfect Job Match Effortlessly</h1>
                                 <p className="mt-6 text-sm sm:text-md text-white">
                                     Tailor your resume to the right opportunities in seconds. Our smart matching technology analyzes your skills and experiences, comparing them with job descriptions to ensure you never miss the perfect fit. Whether you&apos;re kickstarting your career or seeking a new challenge, we&apos;ll help you stand out to employers and land the job that aligns with your goals. Discover a more efficient way to connect with the roles that matter most to you.
                                 </p>
@@ -47,14 +50,14 @@ const Home = () => {
                         </div>
 
                         {/* Bagian Gambar */}
-                        <div className="flex justify-center order-1 md:order-2 mx-auto">
-                            <img className="h-auto w-1/2 md:w-3/4 md:h-auto" src="wendy_15.jpg" alt="wendy.jpg" />
+                        <div className="flex justify-center order-1 lg:order-2 mx-auto">
+                            <img className="w-1/2 lg:w-3/4 lg:h-auto" src="home.jpg" alt="Content" />
                         </div>
                     </div>
                 </div>
             </header>
             <section id="panduan" className="flex flex-col h-screen items-center md:px-16 px-8 py-10 bg-white">
-                <h1 className="font-bold text-3xl sm:text-5xl text-center">User&apos;s Guide</h1>
+                <h1 className="font-semibold text-3xl sm:text-5xl text-center">User&apos;s Guide</h1>
                 <div className="grid md:grid-cols-2 pt-10 gap-4">
                     <div className="grid grid-cols-2 gap-4">
                         <div className="w-52 text-center text-xl flex flex-col justify-center items-center">
