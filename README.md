@@ -22,10 +22,8 @@
 https://huggingface.co/bwbayu/sbert_model_jobcv/tree/main
 
 # Task UI
-- hero di home
-- step di home
-- copy writing [minor]
-- logo [minor]
+- CI/CD
+- domain
 
 # Deploy Flask to Cloud Run
 1. create Dockerfile and .dockerignore
