@@ -43,6 +43,7 @@ const Upload = () => {
     }
 
     const handleUpload = async () => {
+        setLoading(true);
         if (!file) return;
 
         const formData = new FormData();
@@ -58,6 +59,8 @@ const Upload = () => {
             setResume(response.data.text);
         } catch (error) {
             console.error('Error uploading the file:', error);
+        } finally {
+            setLoading(false);
         }
     };
 

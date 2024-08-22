@@ -20,6 +20,7 @@ const Result = () => {
     );
 
     const [jd, setJD] = useState(jobDescription);
+    const [message, setMessage] = useState("");
 
     const handleJobButton = (text) => {
         // console.log("text job button", text);
@@ -47,6 +48,22 @@ const Result = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+        let message = '';
+        if (value <= 20) {
+            message = "It seems your resume and this job description have some differences. Don't be discouraged—consider tweaking your resume to highlight relevant experiences or explore other opportunities that might be a better fit.";
+        } else if (value <= 40) {
+            message = "Your resume and the job description share some common ground, but there's still room to improve. Try emphasizing key skills or experiences that align more closely with the role. With a few adjustments, you could significantly boost your match.";
+        } else if (value <= 60) {
+            message = "You're halfway there! Your resume reflects a fair amount of what this job is looking for. Consider refining your application by focusing on the specific skills or experiences mentioned in the job description. You're not far from a strong match!";
+        } else if (value <= 80) {
+            message = "Your resume and the job description are well-aligned! Most of your skills and experiences match what the employer is looking for. A little fine-tuning could make your application even stronger. You're in a good position for this role—go ahead and apply!";
+        } else {
+            message = "Congratulations! Your resume is a perfect match for this job. Your skills and experiences align almost exactly with what the employer is seeking. You're an excellent candidate for this role—don't hesitate to apply now!";
+        }
+        setMessage(message);
+    }, [value]);
 
     return (
         <div className="flex flex-col h-screen">
@@ -87,10 +104,9 @@ const Result = () => {
                                         { value: value >= 0 ? value : 0, color: '#3BBA9C' },
                                     ]}
                                 />
-                                <p
-                                    className="text-white text-lg font-semibold"
-                                >
-                                    the match between the cv and the job description is very poor</p>
+                                <p className="text-white text-lg font-semibold">
+                                    {message}
+                                </p>
                             </div>
                             <div>
                                 <p
@@ -100,8 +116,9 @@ const Result = () => {
                                 </p>
                                 <hr className="border-2 border-mintGreen sm:w-5/6 w-full mt-2 mb-10" />
                                 {
-                                    resultData ?
-                                        (resultData.map((job, index) => (
+                                    resultData && resultData.length > 0 ? (
+                                        resultData.map((job, index) =>
+                                        (
                                             <JobButton
                                                 key={index}
                                                 handleClick={() => handleJobButton(job.description)}
@@ -109,8 +126,11 @@ const Result = () => {
                                                 idx={index + 1}
                                                 similarity={job.distance}
                                             />
-                                        ))) :
-                                        <p>tidak ada data</p>
+                                        )
+                                        )
+                                    ) : (
+                                        <p className="text-white font-bold text-center text-2xl">-- TIDAK ADA DATA --</p>
+                                    )
                                 }
                                 {
                                     !isMobile && (
