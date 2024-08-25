@@ -1,5 +1,5 @@
 # JobFitte - Compfest Team PeErEx
-https://jobfitte-ajoy7ys6gq-et.a.run.app/
+Website : https://jobfitte-ajoy7ys6gq-et.a.run.app/
 
 # Link Dataset [https://huggingface.co/datasets/bwbayu/job_cv_supervised]
 1. job description in indonesian : https://www.kaggle.com/datasets/canggih/jog-description-and-salary-in-indonesia
