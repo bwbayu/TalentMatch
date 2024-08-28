@@ -5,6 +5,7 @@ Flask-Cors
 python-docx
 nltk
 num2words
+deep-translator
 scikit-learn
 pymilvus
 gunicorn
