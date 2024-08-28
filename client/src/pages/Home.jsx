@@ -57,7 +57,7 @@ const Home = () => {
                 </div>
             </header>
             <section id="panduan" className="flex flex-col h-screen items-center md:px-16 px-8 py-10 bg-white">
-                <h1 className="font-semibold text-3xl sm:text-5xl text-center">User&apos;s Guide</h1>
+                <h1 className="font-semibold text-3xl sm:text-5xl text-center">User Guide</h1>
                 <div className="grid md:grid-cols-2 pt-10 gap-4">
                     <div className="grid grid-cols-2 gap-4">
                         <div className="w-52 text-center text-xl flex flex-col justify-center items-center">
