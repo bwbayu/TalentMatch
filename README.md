@@ -20,12 +20,12 @@ This project is an AI-powered job matching web application aimed at helping job 
 ### Resume Upload Page
 Users can upload or paste their resumes on this page.
 
-![Resume Upload Page]
+![Resume Upload Page](https://github.com/user-attachments/assets/a05caf28-2862-4694-93d5-1b9e49739d9a)
 
 ### Results Page
 This page displays the top 5 job descriptions that match the uploaded resume.
 
-![Results Page]
+![Results Page](https://github.com/user-attachments/assets/fc0703e4-9228-4c41-bf61-4777299046a8)
 
 ## Datasets
 The following datasets were used for fine-tuning the model and building the vector database:
